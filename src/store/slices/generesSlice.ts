@@ -1,18 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+import { filmsAPI } from "../../api/api";
+import type { IGenre } from "../../shared/types";
 
-const initialState = {
-  genres: []
+export const getGenresThunk = createAsyncThunk<Array<IGenre>>(
+  "getGenresThunk",
+  async () => {
+    let response = await filmsAPI.getGenres();
+    return response.data.genres;
+  }
+);
+
+interface IGenresStateType {
+  genres: Array<IGenre>;
+  isPending: boolean;
+}
+
+const initialState: IGenresStateType = {
+  genres: [],
+  isPending: false,
 };
 
 const genresSlice = createSlice({
-  name: 'genresSlice',
+  name: "genresSlice",
   initialState,
-  reducers: {
-    getGenres(state, action) {
-      state.genres = action.payload;
-    }
-  }
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getGenresThunk.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(
+      getGenresThunk.fulfilled,
+      (state: any, action: PayloadAction<Array<IGenre>>) => {
+        state.isPending = false;
+        state.genres = action.payload;
+      }
+    );
+  },
 });
 
-export const { getGenres } = genresSlice.actions;
 export default genresSlice.reducer;
