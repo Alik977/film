@@ -1,0 +1,13 @@
+.genre{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.Header{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}

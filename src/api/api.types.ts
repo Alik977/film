@@ -1,7 +1,14 @@
-import type { IGenre } from "../shared/types";
+import type { IGenre, IFilm } from "../shared/types";
 
 interface IGetGenresResponseType {
-    genres : Array<IGenre>
+    genres: Array<IGenre>
 }
 
-export type {IGetGenresResponseType}
+interface IGetFilmsList {
+    page:number
+    results:Array<IFilm>
+    total_pages:number
+    total_results:number 
+}
+
+export type {IGetGenresResponseType, IGetFilmsList}
