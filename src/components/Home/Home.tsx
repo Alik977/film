@@ -10,16 +10,16 @@ const Home = () => {
   const { films } = useAppSelector((state) => state.filmsData);
   const dispatch = useAppDispatch();
 
-  // Pagination state
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Նույն էջում ցուցադրվող ֆիլմերի քանակ
+  const itemsPerPage = 5; 
   const totalPages = Math.ceil(films.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(getFilmsListThunk());
   }, [dispatch]);
 
-  // Pagination calculations
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentFilms = films.slice(startIndex, startIndex + itemsPerPage);
 
@@ -70,7 +70,7 @@ const Home = () => {
         ))}
       </Box>
 
-      {/* Pagination buttons */}
+
       <Box sx={{ display: "flex", gap: "10px", mt: "20px" }}>
         <Button
           variant="contained"

@@ -71,7 +71,7 @@ export default function SearchAppBar() {
     dispatch(getGenresThunk());
   }, [dispatch]);
 
-  // Close dropdown when clicking outside
+ 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {

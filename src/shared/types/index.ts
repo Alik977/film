@@ -18,6 +18,7 @@ interface IFilm {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  genres: IGenre[];
 }
 
 
