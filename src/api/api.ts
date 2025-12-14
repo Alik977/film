@@ -17,6 +17,8 @@ class FilmsAPI {
   getFilmsList(pageCount =1) {
     return this.axiosConfig().get<IGetFilmsList>(`discover/movie?api_key=${this.#apiKey}&language=en-US&page=${pageCount}`)
   }
+
+ 
 }
 
 export const filmsAPI = new FilmsAPI();
