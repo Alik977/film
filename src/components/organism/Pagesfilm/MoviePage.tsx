@@ -1,39 +1,46 @@
-import { useEffect } from "react";
+import{ useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks"; 
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { getOneFilmThunk } from "../../../store/slices/filmSlice";
 import { Box, Typography } from "@mui/material";
-import { getFilmByIdThunk } from "../../../store/slices/filmSlice";
 
-const imgUrl = "https://image.tmdb.org/t/p/w500/";
-
-const MoviePage = () => {
-  const { id } = useParams<{ id: string }>();
+const imgUrl = "https://image.tmdb.org/t/p/w300/";
+const FilmPage = () => {
+  const { id } = useParams<string>();
   const dispatch = useAppDispatch();
-  const { selectedFilm } = useAppSelector((state) => state.filmsData);
+
+  const oneFilm = useAppSelector((state) => state.filmsData.selectedFilm);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getFilmByIdThunk(id));
-    }
+    dispatch(getOneFilmThunk(Number(id)));
   }, [id, dispatch]);
 
-  if (!selectedFilm) return <div>Loading...</div>;
-
   return (
-    <Box>
-      <Typography variant="h4">{selectedFilm.title}</Typography>
-      <img src={`${imgUrl}${selectedFilm.poster_path}`} alt={selectedFilm.title} />
-      <Typography variant="body1">{selectedFilm.overview}</Typography>
-
-      <Box>
-        <Typography variant="h6">Genres:</Typography>
-        {Array.isArray(selectedFilm.genres) && selectedFilm.genres.length > 0
-          ? selectedFilm.genres.map((genre) => <span key={genre.id}>{genre.name} </span>)
-          : <span>No genres available</span>
-        }
-      </Box>
+    <Box
+      sx={{
+        maxWidth: "400px",
+        width: "100%",
+        margin: "auto",
+        padding: "20px",
+        border: "2px solid black",
+        borderRadius: "20px",
+        boxShadow: "0 4px 20px rgba(150, 84, 84, 0.1)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        justifyContent:'space-between',
+        alignItems: "center",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <Typography
+        variant="h5"> {oneFilm?.title}  </Typography>
+      <img src={imgUrl + oneFilm?.backdrop_path} />
+      <Typography  sx={{ textAlign:"justify", color: "#444", }}>{oneFilm?.overview}</Typography>
+      <Typography> <span style={{ fontWeight: 700, color: "#1976d2" }}>Popularity</span>  {oneFilm?.popularity}</Typography>
+      <Typography><span style={{ fontWeight: 700, color: "#1976d2" }}>Release Date</span> {oneFilm?.release_date}</Typography>
     </Box>
   );
 };
 
-export default MoviePage;
+export default FilmPage;

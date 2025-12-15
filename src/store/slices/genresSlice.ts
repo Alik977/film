@@ -32,9 +32,7 @@ const genresSlice = createSlice({
     builder.addCase(getGenresThunk.pending, (state) => {
       state.isPending = true;
     });
-    builder.addCase(
-      getGenresThunk.fulfilled,
-      (state: any, action: PayloadAction<Array<IGenre>>) => {
+    builder.addCase(getGenresThunk.fulfilled, (state, action: PayloadAction<Array<IGenre>>) => {
         state.isPending = false;
         state.genres = action.payload;
       }

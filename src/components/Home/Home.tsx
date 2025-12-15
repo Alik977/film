@@ -1,103 +1,97 @@
-import { useEffect, useState } from "react";
-import { getFilmsListThunk } from "../../store/slices/filmSlice.ts";
+import { useEffect } from "react";
+import { getFilmsListThunk, changePage } from "../../store/slices/filmSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Box, Typography, Button } from "@mui/material";
-import './Home.css';
+import { Box, Typography, Pagination } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import "./Home.css";
 
-const imgUrl = "https://image.tmdb.org/t/p/w500/";
+const imgUrl = "https://image.tmdb.org/t/p/w200/";
 
 const Home = () => {
-  const { films } = useAppSelector((state) => state.filmsData);
+  const { films, page, totalPages } = useAppSelector(
+    (state) => state.filmsData
+  );
   const dispatch = useAppDispatch();
 
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; 
-  const totalPages = Math.ceil(films.length / itemsPerPage);
-
   useEffect(() => {
-    dispatch(getFilmsListThunk());
-  }, [dispatch]);
-
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentFilms = films.slice(startIndex, startIndex + itemsPerPage);
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
+    dispatch(getFilmsListThunk(page));
+  }, [page, dispatch]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: "20px", gap: "20px" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+     
+      <Pagination
+        sx={{ mt: 2 }}
+        count={totalPages}
+        page={page}
+        onChange={(_, value) => dispatch(changePage(value))}
+        showFirstButton
+        showLastButton
+      />
+
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           gap: "15px",
           flexWrap: "wrap",
+          mt: "20px",
         }}
       >
-        {currentFilms.map((film) => (
+        {films.map((film) => (
           <Box
             key={film.id}
             sx={{
               padding: "10px 20px",
               textAlign: "center",
               borderRadius: "30px",
-              maxWidth: "400px",
+              maxWidth: "300px",
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
               alignItems: "center",
-              gap: "20px",
-              transition: "all 0.5s",
-              "&:hover": {
-                transform: "translateY(-10px)",
-                "& img": { transform: "scale(1.2)" },
-              },
+              gap: "15px",
+              transition: "0.5s",
+              "&:hover": { transform: "translateY(-10px)" },
             }}
           >
-            <Typography variant="h4" className="head">{film.title}</Typography>
-            <img
-              src={imgUrl + film.poster_path}
-              style={{ borderRadius: "30px", transition: "all 0.5s" }}
-              className="textarea"
-            />
+           <NavLink
+  to={`/film/${film.id}`}
+  style={{
+    textDecoration: "none",
+    color: "white",
+    display: "flex",
+    justifyContent:"space-around",
+    flexDirection: "column",
+    alignItems:"center",
+    gap: "2px",
+    fontFamily:"-apple-system",
+   
+  }}
+>
+ <Typography variant="h6" sx={{ mb: 1.5 }}>
+  {film.title}
+</Typography>
+  <img
+    src={imgUrl + film.poster_path}
+    style={{ borderRadius: "20px", width: "100%" }}
+    className="textarea"
+  />
+</NavLink>
           </Box>
         ))}
       </Box>
 
-
-      <Box sx={{ display: "flex", gap: "10px", mt: "20px" }}>
-        <Button
-          variant="contained"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </Button>
-
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Button
-            key={i + 1}
-            variant={currentPage === i + 1 ? "contained" : "outlined"}
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </Button>
-        ))}
-
-        <Button
-          variant="contained"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </Button>
-      </Box>
+      
+      <Pagination
+        sx={{ mt: 2 }}
+        count={totalPages}
+        page={page}
+        onChange={(_, value) => dispatch(changePage(value))}
+        showFirstButton
+        showLastButton
+        color="primary"
+      />
     </Box>
   );
 };

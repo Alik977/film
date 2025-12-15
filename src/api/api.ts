@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { IGetFilmsList, IGetGenresResponseType } from "./api.types";
+import type { IFilm } from "../shared/types";
 
 class FilmsAPI {
   #apiKey: string = "f36f23edf6e10fd2ddcf939916b1f67a";
@@ -18,7 +19,15 @@ class FilmsAPI {
     return this.axiosConfig().get<IGetFilmsList>(`discover/movie?api_key=${this.#apiKey}&language=en-US&page=${pageCount}`)
   }
 
- 
+  getOneMovie(id:number) {
+    return this.axiosConfig().get<IFilm>(`/movie/${id}?api_key=${this.#apiKey}&language=en-US`)
+  }
+
+  getSearchFilmList(text: "") {
+    return this.axiosConfig().get<IGetFilmsList>(
+      `search/movie?api_key=${this.#apiKey}&query=${text}`
+    );
+  }
 }
 
 export const filmsAPI = new FilmsAPI();

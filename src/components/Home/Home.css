@@ -1,8 +1,8 @@
 .textarea{
     
-  font-size: 24px;
+  font-size: 44px;
   border: 1px solid black;
-  padding: 8rem;
+  padding: 5rem;
   height: 10em;
 
 
@@ -14,6 +14,28 @@ body{
     background-image: url(..//../assets/image/avatar-fire-and-ash-3840x2160-24703.jpg);
   background-size: contain;
 }
-.head{
-    color: white;
+.film-link {
+  text-decoration: none;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px; 
+}
+
+.film-title {
+  margin-bottom: 6px; 
+  text-align: center;
+}
+
+.film-img {
+  width: 100%;
+  border-radius: 20px;
+  transition: transform 0.4s ease;
+}
+
+/* hover effect */
+.film-link:hover .film-img {
+  transform: scale(1.05);
 }
