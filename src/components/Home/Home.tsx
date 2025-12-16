@@ -27,6 +27,8 @@ const Home = () => {
         onChange={(_, value) => dispatch(changePage(value))}
         showFirstButton
         showLastButton
+        color="primary"
+       
       />
 
       <Box
@@ -40,45 +42,38 @@ const Home = () => {
       >
         {films.map((film) => (
           <Box
-            key={film.id}
-            sx={{
-              padding: "10px 20px",
-              textAlign: "center",
-              borderRadius: "30px",
-              maxWidth: "300px",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "15px",
-              transition: "0.5s",
-              "&:hover": { transform: "translateY(-10px)" },
+          key={film.id}
+  className="movie-card"
+  sx={{
+    padding: "12px",
+    borderRadius: "32px",
+    maxWidth: "300px",
+    width: "100%",
+    transition: "0.5s",
+    "&:hover": { transform: "translateY(-12px) scale(1.02)" },
             }}
           >
-           <NavLink
-  to={`/film/${film.id}`}
-  style={{
-    textDecoration: "none",
-    color: "white",
-    display: "flex",
-    justifyContent:"space-around",
-    flexDirection: "column",
-    alignItems:"center",
-    gap: "2px",
-    fontFamily:"-apple-system",
-   
-  }}
->
- <Typography variant="h6" sx={{ mb: 1.5 }}>
-  {film.title}
-</Typography>
-  <img
-    src={imgUrl + film.poster_path}
-    style={{ borderRadius: "20px", width: "100%" }}
-    className="textarea"
-  />
-</NavLink>
-          </Box>
+          <NavLink
+    to={`/film/${film.id}`}
+    style={{
+      textDecoration: "none",
+      color: "white",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "8px",
+      fontFamily: "-apple-system",
+    }}
+  >
+  <Typography variant="h6">{film.title}</Typography>
+
+    <img
+      src={imgUrl + film.poster_path}
+      className="movie-poster"
+      style={{ width: "100%" }}
+    />
+  </NavLink>
+</Box>
         ))}
       </Box>
 

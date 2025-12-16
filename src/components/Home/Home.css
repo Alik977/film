@@ -1,14 +1,4 @@
-.textarea{
-    
-  font-size: 44px;
-  border: 1px solid black;
-  padding: 5rem;
-  height: 10em;
 
-
-  border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg style='outline: 1px solid red%3B' width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cstyle%3Epath%7Banimation:stroke 5s infinite linear%3B%7D%40keyframes stroke%7Bto%7Bstroke-dashoffset:600%3B%7D%7D%3C/style%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232d3561' /%3E%3Cstop offset='25%25' stop-color='%23c05c7e' /%3E%3Cstop offset='50%25' stop-color='%23f3826f' /%3E%3Cstop offset='100%25' stop-color='%23ffb961' /%3E%3C/linearGradient%3E%3Cfilter id='distortion' width='100' height='100'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.05' numOctaves='2' result='turbulence'%3E%3Canimate attributeName='baseFrequency' dur='14s' values='.1%3B.2%3B.1' repeatCount='indefinite' /%3E%3C/feTurbulence%3E%3CfeDisplacementMap in2='turbulence' in='SourceGraphic' scale='20' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Cpath d='M5 5 l80 0l0 80l-80 0 l0 -80' filter='url(%23distortion)' stroke-linecap='butt' stroke='url(%23g)' stroke-width='10' stroke-dasharray='300'/%3E%3C/svg%3E")
-    20 / 100;
-}
 
 body{
     background-image: url(..//../assets/image/avatar-fire-and-ash-3840x2160-24703.jpg);
@@ -35,7 +25,63 @@ body{
   transition: transform 0.4s ease;
 }
 
-/* hover effect */
+
 .film-link:hover .film-img {
   transform: scale(1.05);
+}
+
+.movie-card {
+  position: relative;
+  background: linear-gradient(140deg, #ff00cc, #3333ff, #00ffd5);
+  background-size: 300% 300%;
+  animation: gradientMove 6s ease infinite;
+  box-shadow: 0 0 25px rgba(120, 115, 245, 0.4);
+}
+
+.movie-card::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #0b0b0b;
+  border-radius: 28px;
+  z-index: 1;
+}
+
+.movie-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  filter: blur(18px);
+  background: inherit;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.movie-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Poster effect */
+.movie-poster {
+  border-radius: 22px;
+  transition: 0.5s;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.07);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 10%;
+  }
 }

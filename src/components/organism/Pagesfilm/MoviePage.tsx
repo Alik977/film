@@ -30,13 +30,13 @@ const FilmPage = () => {
         gap: "10px",
         justifyContent:'space-between',
         alignItems: "center",
-        backgroundColor: "#f9f9f9",
+    
       }}
     >
       <Typography
         variant="h5"> {oneFilm?.title}  </Typography>
       <img src={imgUrl + oneFilm?.backdrop_path} />
-      <Typography  sx={{ textAlign:"justify", color: "#444", }}>{oneFilm?.overview}</Typography>
+      <Typography  sx={{ textAlign:"justify", color: "white", }}>{oneFilm?.overview}</Typography>
       <Typography> <span style={{ fontWeight: 700, color: "#1976d2" }}>Popularity</span>  {oneFilm?.popularity}</Typography>
       <Typography><span style={{ fontWeight: 700, color: "#1976d2" }}>Release Date</span> {oneFilm?.release_date}</Typography>
     </Box>

@@ -3,11 +3,13 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../../components/Home/Home";
 import { Layout } from "../../components/templates/Layout/Layout";
 import MoviePage from '../../components/organism/Pagesfilm/MoviePage';
+import ErrorPage from "../../components/organism/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

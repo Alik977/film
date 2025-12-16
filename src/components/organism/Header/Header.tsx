@@ -14,6 +14,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getGenresThunk } from "../../../store/slices/genresSlice";
 import { searchMoviesThunk } from "../../../store/slices/searchSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,11 +58,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+
 export default function SearchAppBar() {
   const dispatch = useAppDispatch();
   const { genres } = useAppSelector(state => state.genresData);
   const { results } = useAppSelector(state => state.searchData);
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [value, setValue] = useState('');
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -171,11 +175,18 @@ export default function SearchAppBar() {
                   },
                 }}
               >
-                {results.map((movie: any) => (
-                  <MenuItem key={movie.id}>
-                    {movie.title}
-                  </MenuItem>
-                ))}
+           {results.map((movie: any) => (
+  <MenuItem
+    key={movie.id}
+    onClick={() => {
+     navigate(`/movie/${movie.id}`);
+      setOpenDropdown(false);
+      setValue('');
+    }}
+  >
+    {movie.title}
+  </MenuItem>
+))}
               </Box>
             )}
 
