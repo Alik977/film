@@ -4,6 +4,7 @@ import Home from "../../components/Home/Home";
 import { Layout } from "../../components/templates/Layout/Layout";
 import MoviePage from '../../components/organism/Pagesfilm/MoviePage';
 import ErrorPage from "../../components/organism/ErrorPage/ErrorPage";
+import GenrePage from "../../components/organism/Pagesfilm/GenrePage";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "movie/:id",
         element: <MoviePage />
+      },
+      {
+        path: "genre/:id",
+        element: <GenrePage />
       }
     ],
   },

@@ -5,11 +5,12 @@ import {
 } from "@reduxjs/toolkit";
 import { filmsAPI } from "../../api/api";
 import type { IGenre } from "../../shared/types";
+import type { SelectType } from "../../components/organism/Header/Header";
 
-export const getGenresThunk = createAsyncThunk<Array<IGenre>>(
+export const getGenresThunk = createAsyncThunk<Array<IGenre>,any>(
   "getGenresThunk",
-  async () => {
-    let response = await filmsAPI.getGenres();
+  async ({selectLng}) => {
+    let response = await filmsAPI.getGenres(selectLng);
     return response.data.genres;
   }
 );

@@ -34,11 +34,11 @@ const FilmPage = () => {
       }}
     >
       <Typography
-        variant="h5"> {oneFilm?.title}  </Typography>
+        variant="h5"> <span style={{ fontWeight: 700, color: "#1976d2",}}>Popularity {oneFilm?.title} </span>  </Typography>
       <img src={imgUrl + oneFilm?.backdrop_path} />
       <Typography  sx={{ textAlign:"justify", color: "white", }}>{oneFilm?.overview}</Typography>
-      <Typography> <span style={{ fontWeight: 700, color: "#1976d2" }}>Popularity</span>  {oneFilm?.popularity}</Typography>
-      <Typography><span style={{ fontWeight: 700, color: "#1976d2" }}>Release Date</span> {oneFilm?.release_date}</Typography>
+      <Typography> <span style={{ fontWeight: 700, color: "#1976d2",}}>Popularity {oneFilm?.popularity}</span>  </Typography>
+      <Typography><span style={{ fontWeight: 700, color: "#1976d2" }}>Release Date {oneFilm?.release_date}</span> </Typography>
     </Box>
   );
 };
